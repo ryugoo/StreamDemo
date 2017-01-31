@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Stream Demo</string>
+    <string name="rx_java">RxJava</string>
+    <string name="lws">LWS</string>
+    <string name="about">About</string>
+    <string name="rx_java_with_retrofit">RxJava with Retrofit</string>
+    <string name="collection_processing">Collection Processing</string>
+    <string name="application_description">This demo application for DroidKaigi 2017\'s session of \"すべてSになる 〜RxJavaとLWSをAndroidに持ち込む楽しさ〜\".</string>
+    <string name="license">License</string>
+    <string name="show_library_licenses">Show Library licenses</string>
+</resources>

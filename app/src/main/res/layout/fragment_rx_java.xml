@@ -1,0 +1,41 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="rxJavaHandler"
+            type="com.r384ta.android.streamdemo.fragment.handler.RxJavaHandler"/>
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/white"
+        tools:context="com.r384ta.android.streamdemo.fragment.RxJavaFragment">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <Button
+                android:id="@+id/rx_java_with_retrofit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:onClick="@{rxJavaHandler::onRetrofitClick}"
+                android:text="@string/rx_java_with_retrofit"
+                android:textAllCaps="false"/>
+
+            <TextView
+                android:id="@+id/rx_java_with_retrofit_result"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:visibility="gone"/>
+        </LinearLayout>
+    </ScrollView>
+</layout>

@@ -1,0 +1,143 @@
+buildscript {
+  repositories {
+    jcenter()
+    mavenCentral()
+  }
+
+  dependencies {
+    classpath 'com.jakewharton.hugo:hugo-plugin:1.2.1'
+    classpath 'com.cookpad.android.licensetools:license-tools-plugin:0.19.1'
+  }
+}
+
+repositories {
+  mavenCentral()
+  maven { url "https://jitpack.io" }
+}
+
+apply plugin: 'com.android.application'
+apply plugin: 'me.tatarka.retrolambda'
+apply plugin: 'com.jakewharton.hugo'
+apply plugin: 'com.cookpad.android.licensetools'
+
+// Version
+def versionMajor = 1
+def versionMinor = 0
+def versionPatch = 0
+
+// Package
+def packageName = "com.r384ta.android.streamdemo"
+
+android {
+  compileSdkVersion 25
+  buildToolsVersion "25.0.2"
+
+  defaultConfig {
+    applicationId packageName
+    minSdkVersion 21
+    targetSdkVersion 25
+    versionCode versionMajor * 100 + versionMinor * 10 + versionPatch
+    versionName "${versionMajor}.${versionMinor}.${versionPatch}"
+    testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+  }
+  buildTypes {
+    release {
+      shrinkResources true
+      debuggable false
+      jniDebuggable false
+      minifyEnabled true
+      zipAlignEnabled true
+      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+    }
+    debug {
+      applicationIdSuffix '.debug'
+      versionNameSuffix '-dev'
+      shrinkResources false
+      debuggable true
+      jniDebuggable true
+      zipAlignEnabled true
+      minifyEnabled false
+    }
+  }
+  compileOptions {
+    sourceCompatibility JavaVersion.VERSION_1_8
+    targetCompatibility JavaVersion.VERSION_1_8
+  }
+  packagingOptions {
+    exclude 'META-INF/NOTICE.txt'
+    exclude 'META-INF/LICENSE.txt'
+    exclude 'META-INF/DEPENDENCIES'
+    exclude 'META-INF/NOTICE'
+    exclude 'META-INF/LICENSE'
+    exclude 'META-INF/services/javax.annotation.processing.Processor'
+    exclude 'META-INF/rxjava.properties'
+  }
+  dataBinding {
+    enabled = true
+  }
+}
+
+// Library version
+ext {
+  // Google
+  support_lib = '25.1.1'
+  gson = '2.8.0'
+
+  // Square
+  retrofit = '2.1.0'
+  retrofit2_rxjava2 = '1.0.0'
+  okhttp = '3.5.0'
+
+  // Rx
+  rxjava1 = '1.2.5'
+  rxjava2 = '2.0.4'
+  rxandroid2 = '2.0.1'
+
+  // DI
+  dagger = '2.8'
+
+  // Backport
+  lwsapi = '1.1.4'
+
+  // Util
+  spot = '0.1.4'
+}
+
+dependencies {
+  compile fileTree(dir: 'libs', include: ['*.jar'])
+  androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+    exclude group: 'com.android.support', module: 'support-annotations'
+  })
+  testCompile 'junit:junit:4.12'
+
+  // Google
+  compile "com.android.support:appcompat-v7:${support_lib}"
+  compile "com.android.support:recyclerview-v7:${support_lib}"
+  compile "com.android.support:design:${support_lib}"
+  compile "com.android.support:customtabs:${support_lib}"
+  compile "com.google.code.gson:gson:${gson}"
+
+  // Square
+  compile "com.squareup.retrofit2:retrofit:${retrofit}"
+  compile "com.squareup.retrofit2:converter-gson:${retrofit}"
+  compile "com.squareup.okhttp3:okhttp:${okhttp}"
+  compile "com.squareup.okhttp3:okhttp-urlconnection:${okhttp}"
+  compile "com.jakewharton.retrofit:retrofit2-rxjava2-adapter:${retrofit2_rxjava2}"
+
+  // Rx
+  compile "io.reactivex:rxjava:${rxjava1}"
+  compile "io.reactivex.rxjava2:rxjava:${rxjava2}"
+  compile "io.reactivex.rxjava2:rxandroid:${rxandroid2}"
+
+  // DI
+  compile "com.google.dagger:dagger:${dagger}"
+  annotationProcessor "com.google.dagger:dagger-compiler:${dagger}"
+  provided 'javax.annotation:jsr250-api:1.0'
+
+  // Backport
+  compile "com.annimon:stream:${lwsapi}"
+
+  // Util
+  compile "com.github.kobakei.spot:library:${spot}"
+  annotationProcessor "com.github.kobakei.spot:compiler:${spot}"
+}
