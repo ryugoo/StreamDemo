@@ -9,12 +9,13 @@ import android.text.TextUtils;
 
 import com.annimon.stream.Optional;
 import com.google.gson.Gson;
+import com.r384ta.android.streamdemo.di.module.ProvideNames;
 import com.r384ta.android.streamdemo.dto.HttpBinGetDto;
 import com.r384ta.android.streamdemo.dto.HttpBinGetDtoSpotRepository;
-import com.r384ta.android.streamdemo.di.module.ProvideNames;
 import com.r384ta.android.streamdemo.misc.AndroidDisposable;
 import com.r384ta.android.streamdemo.model.HttpBinGet;
 import com.r384ta.android.streamdemo.network.HttpBinService;
+import com.r384ta.android.streamdemo.type.Either;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -69,8 +70,10 @@ public class RxJavaViewModel extends BaseViewModel {
             .subscribe(mHttpBinText::onNext, mHttpBinText::onError));
     }
 
-    public Observable<Spanned> httpBinText() {
-        return mHttpBinText;
+    public Observable<Either<Throwable, Spanned>> httpBinText() {
+        return mHttpBinText
+            .map(Either::<Throwable, Spanned>right)
+            .onErrorReturn(Either::left);
     }
     //endregion
 

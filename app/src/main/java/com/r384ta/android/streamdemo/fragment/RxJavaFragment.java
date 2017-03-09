@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.r384ta.android.streamdemo.R;
 import com.r384ta.android.streamdemo.databinding.FragmentRxJavaBinding;
@@ -61,10 +62,21 @@ public class RxJavaFragment extends BaseFragment implements RxJavaHandler {
 
         mDisposable.add(mViewModel.httpBinText()
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(result -> {
-                mBinding.rxJavaWithRetrofitResult.setVisibility(View.VISIBLE);
-                mBinding.rxJavaWithRetrofitResult.setText(result);
-            }, Throwable::printStackTrace));
+            .filter(__ -> !isDetached() && getActivity() != null)
+            .subscribe(either -> either.apply(
+                failure -> {
+                    Toast.makeText(getContext(), R.string.request_is_failure, Toast.LENGTH_SHORT).show();
+                    failure.printStackTrace();
+                },
+                success -> {
+                    Toast.makeText(getContext(), R.string.request_is_success, Toast.LENGTH_SHORT).show();
+                    mBinding.rxJavaWithRetrofitResult.setVisibility(View.VISIBLE);
+                    mBinding.rxJavaWithRetrofitResult.setText(success);
+                }),
+                error -> {
+                    Toast.makeText(getContext(), R.string.request_is_failure, Toast.LENGTH_SHORT).show();
+                    error.printStackTrace();
+                }));
     }
 
     @Override

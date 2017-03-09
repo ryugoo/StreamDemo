@@ -123,9 +123,9 @@
   license: The Apache Software License, Version 2.0
   licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
   url: https://github.com/JakeWharton/hugo/
-- artifact: com.jakewharton.retrofit:retrofit2-rxjava2-adapter:+
-  name: Retrofit 2 RxJava 2 Adapter
-  copyrightHolder: Jake Wharton
+- artifact: com.squareup.retrofit2:adapter-rxjava2:+
+  name: Adapter RxJava 2
+  copyrightHolder: Square, Inc
   license: Apache License Version 2.0
   licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
 - artifact: com.squareup.okhttp3:okhttp-urlconnection:+

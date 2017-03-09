@@ -8,4 +8,6 @@
     <string name="application_description">This demo application for DroidKaigi 2017\'s session of \"すべてSになる 〜RxJavaとLWSをAndroidに持ち込む楽しさ〜\".</string>
     <string name="license">License</string>
     <string name="show_library_licenses">Show Library licenses</string>
+    <string name="request_is_failure">Request is failure</string>
+    <string name="request_is_success">Requst is success</string>
 </resources>
