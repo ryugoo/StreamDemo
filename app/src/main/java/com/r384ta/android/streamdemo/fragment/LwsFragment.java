@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.annimon.stream.Optional;
 import com.r384ta.android.streamdemo.R;
 import com.r384ta.android.streamdemo.databinding.FragmentLwsBinding;
 import com.r384ta.android.streamdemo.fragment.handler.LwsHandler;
@@ -33,10 +34,7 @@ public class LwsFragment extends BaseFragment implements LwsHandler {
 
     public static LwsFragment newInstance() {
         LwsFragment fragment = new LwsFragment();
-        Bundle args = fragment.getArguments();
-        if (args == null) {
-            args = new Bundle();
-        }
+        Bundle args = Optional.ofNullable(fragment.getArguments()).orElseGet(Bundle::new);
         fragment.setArguments(args);
         return fragment;
     }

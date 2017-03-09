@@ -14,11 +14,12 @@ public abstract class BaseActivity extends AppCompatActivity {
     private ActivityComponent mActivityComponent;
 
     public ActivityComponent getActivityComponent() {
-        if (mActivityComponent == null) {
-            AppComponent appComponent = ((App) getApplication()).getAppComponent();
-            mActivityComponent = appComponent.plus(new ActivityModule(this));
-        }
-        return mActivityComponent;
+        return Optional.ofNullable(mActivityComponent)
+            .orElseGet(() -> {
+                AppComponent appComponent = ((App) getApplication()).getAppComponent();
+                mActivityComponent = appComponent.plus(new ActivityModule(this));
+                return mActivityComponent;
+            });
     }
 
     public Optional<ActionBar> getOptionalActionBar() {

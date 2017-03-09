@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.annimon.stream.Optional;
 import com.r384ta.android.streamdemo.R;
 import com.r384ta.android.streamdemo.databinding.FragmentRxJavaBinding;
 import com.r384ta.android.streamdemo.fragment.handler.RxJavaHandler;
@@ -34,10 +35,7 @@ public class RxJavaFragment extends BaseFragment implements RxJavaHandler {
 
     public static RxJavaFragment newInstance() {
         RxJavaFragment fragment = new RxJavaFragment();
-        Bundle args = fragment.getArguments();
-        if (args == null) {
-            args = new Bundle();
-        }
+        Bundle args = Optional.ofNullable(fragment.getArguments()).orElseGet(Bundle::new);
         fragment.setArguments(args);
         return fragment;
     }

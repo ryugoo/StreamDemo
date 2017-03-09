@@ -13,18 +13,14 @@ public abstract class BaseFragment extends Fragment {
     private FragmentComponent mFragmentComponent;
 
     public FragmentComponent getFragmentComponent() {
-        if (mFragmentComponent != null) {
-            return mFragmentComponent;
-        }
-
-        mFragmentComponent = Optional.ofNullable(getActivity())
-            .select(BaseActivity.class)
-            .map(BaseActivity::getActivityComponent)
-            .map(activityComponent -> activityComponent.plus(new FragmentModule(this)))
-            .orElseThrow(() ->
-                new IllegalStateException("This activity is not an instance of BaseActivity"));
-
-        return mFragmentComponent;
+        return Optional.ofNullable(mFragmentComponent)
+            .orElseGet(() -> Optional.ofNullable(getActivity())
+                .select(BaseActivity.class)
+                .map(BaseActivity::getActivityComponent)
+                .map(activityComponent -> activityComponent.plus(new FragmentModule(this)))
+                .executeIfPresent(fragmentComponent -> mFragmentComponent = fragmentComponent)
+                .orElseThrow(() ->
+                    new IllegalStateException("This activity is not an instance of BaseActivity")));
     }
 
     public Optional<Activity> getOptionalActivity() {
