@@ -7,6 +7,7 @@ buildscript {
   dependencies {
     classpath 'com.jakewharton.hugo:hugo-plugin:1.2.1'
     classpath 'com.cookpad.android.licensetools:license-tools-plugin:0.19.1'
+    classpath 'com.github.ben-manes:gradle-versions-plugin:0.14.0'
   }
 }
 
@@ -19,6 +20,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'me.tatarka.retrolambda'
 apply plugin: 'com.jakewharton.hugo'
 apply plugin: 'com.cookpad.android.licensetools'
+apply plugin: 'com.github.ben-manes.versions'
 
 // Version
 def versionMajor = 1
@@ -80,27 +82,26 @@ android {
 // Library version
 ext {
   // Google
-  support_lib = '25.1.1'
+  support_lib = '25.2.0'
   gson = '2.8.0'
 
   // Square
-  retrofit = '2.1.0'
-  retrofit2_rxjava2 = '1.0.0'
-  okhttp = '3.5.0'
+  retrofit = '2.2.0'
+  okhttp = '3.6.0'
 
   // Rx
-  rxjava1 = '1.2.5'
-  rxjava2 = '2.0.4'
+  rxjava1 = '1.2.7'
+  rxjava2 = '2.0.7'
   rxandroid2 = '2.0.1'
 
   // DI
-  dagger = '2.8'
+  dagger = '2.10-rc2'
 
   // Backport
-  lwsapi = '1.1.4'
+  lwsapi = '1.1.6'
 
   // Util
-  spot = '0.1.4'
+  spot = '1.0.0'
 }
 
 dependencies {
@@ -120,9 +121,9 @@ dependencies {
   // Square
   compile "com.squareup.retrofit2:retrofit:${retrofit}"
   compile "com.squareup.retrofit2:converter-gson:${retrofit}"
+  compile "com.squareup.retrofit2:adapter-rxjava2:${retrofit}"
   compile "com.squareup.okhttp3:okhttp:${okhttp}"
   compile "com.squareup.okhttp3:okhttp-urlconnection:${okhttp}"
-  compile "com.jakewharton.retrofit:retrofit2-rxjava2-adapter:${retrofit2_rxjava2}"
 
   // Rx
   compile "io.reactivex:rxjava:${rxjava1}"
